@@ -15,7 +15,7 @@
                 <div class="col-12 offset-md-4 col-md-4">
                     <h1 class="h1">To Do List - Lab</h1>
                     <div id="to-do">
-                        /* To Do */
+                        <!-- To Do -->
                     </div>
                 </div>
             </div>
@@ -29,15 +29,37 @@
             document.addEventListener("DOMContentLoaded", () => {
                 console.log("DOM ready!");
                 let toDoElement = document.getElementById("to-do");
-                let ulElement = document.createElement('ul');
+                /* list-group */
+                let ulElement = document.createElement("ul");
                 ulElement.className = "list-group";
                 toDoElement.appendChild(ulElement);
                 for (let i = 0; i < 10; i++) {
-                    let liElementNew = document.createElement('li');
+                    let liElementNew = document.createElement("li");
                     liElementNew.className = "list-group-item";
                     liElementNew.innerHTML = `Item ${i + 1}`;
                     ulElement.appendChild(liElementNew);
                 }
+                /* input-group */
+                let divInputGroupElement = document.createElement("div");
+                divInputGroupElement.className = "input-group m-0 my-3 p-0";
+                toDoElement.appendChild(divInputGroupElement);
+                let inputCreateItemInputTextElement = document.createElement("input");
+                inputCreateItemInputTextElement.type = "text";
+                inputCreateItemInputTextElement.className = "form-control";
+                inputCreateItemInputTextElement.id = "create-item-input-text";
+                inputCreateItemInputTextElement.placeholder = "Item Text";
+                inputCreateItemInputTextElement.setAttribute("aria-label", "Item Text");
+                inputCreateItemInputTextElement.setAttribute("aria-describedby", "create-item-button");
+                divInputGroupElement.appendChild(inputCreateItemInputTextElement);
+                let divInputGroupAppendElement = document.createElement("div");
+                divInputGroupAppendElement.className = "input-group-append";
+                divInputGroupElement.appendChild(divInputGroupAppendElement);
+                let buttonCreateItemButtonElement = document.createElement("button");
+                buttonCreateItemButtonElement.type = "button";
+                buttonCreateItemButtonElement.className = "btn btn-primary";
+                buttonCreateItemButtonElement.id = "create-item-button";
+                buttonCreateItemButtonElement.innerText = "Create Item";
+                divInputGroupAppendElement.appendChild(buttonCreateItemButtonElement);
             });
         </script>
     </body>
