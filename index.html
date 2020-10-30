@@ -13,6 +13,10 @@
                 cursor: pointer;
             }
 
+            .cursor-not-allowed {
+                cursor: not-allowed;
+            }
+
             .text-decoration-line-through {
                 text-decoration: line-through;
             }
@@ -37,10 +41,6 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const divToDoElement = document.getElementById("to-do");
-                /* list-group */
-                const ulElement = document.createElement("ul");
-                ulElement.className = "list-group";
-                divToDoElement.appendChild(ulElement);
                 /* input-group */
                 const divInputGroupElement = document.createElement("div");
                 divInputGroupElement.className = "input-group m-0 my-3 p-0";
@@ -62,23 +62,42 @@
                 buttonCreateItemElement.id = "create-item-button";
                 buttonCreateItemElement.innerText = "Create Item";
                 divInputGroupAppendElement.appendChild(buttonCreateItemElement);
+                /* list-group */
+                const ulElement = document.createElement("ul");
+                ulElement.className = "list-group";
+                divToDoElement.appendChild(ulElement);
                 /* EventListener */
-                buttonCreateItemElement.addEventListener('click', (event) => {
+                buttonCreateItemElement.addEventListener("click", (event) => {
                     const innerHTMLTemporal = String(inputTextCreateItemElement.value).trim();
                     if (innerHTMLTemporal.length > 0) {
                         const liNewElement = document.createElement("li");
                         liNewElement.className = "list-group-item cursor-pointer";
                         liNewElement.innerHTML = innerHTMLTemporal;
+                        liNewElement.addEventListener("mouseenter", (liNewEvent) => {
+                            let className = liNewEvent.target.className;
+                            if (!className.includes("list-group-item-danger")) {
+                                liNewEvent.target.classList.add("list-group-item-danger");
+                            }
+                        });
+                        liNewElement.addEventListener("mouseleave", (liNewEvent) => {
+                            let className = liNewEvent.target.className;
+                            if (className.includes("list-group-item-danger")) {
+                                liNewEvent.target.classList.remove("list-group-item-danger");
+                            }
+                        });
                         ulElement.appendChild(liNewElement);
                         inputTextCreateItemElement.value = "";
+                        inputTextCreateItemElement.focus();
                     } else {
                         alert(`"You should write a text for the new item!"`);
                     }
                 });
-                ulElement.addEventListener('click', (event) => {
-                    event.target.className += " text-decoration-line-through";
+                ulElement.addEventListener("click", (event) => {
+                    event.target.classList.add("text-decoration-line-through");
+                    event.target.classList.add("cursor-not-allowed");
                     setTimeout(() => {
                         event.target.remove();
+                        inputTextCreateItemElement.focus();
                     }, 1000);
                 });
             });
