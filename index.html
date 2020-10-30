@@ -10,10 +10,35 @@
         <title>To Do List - Lab</title>
     </head>
     <body>
-        <h1>Hello, world!</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 offset-md-4 col-md-4">
+                    <h1 class="h1">To Do List - Lab</h1>
+                    <div id="to-do">
+                        /* To Do */
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- jQuery, Popper.js, and Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <!-- My JavaScript Code-->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                console.log("DOM ready!");
+                let toDoElement = document.getElementById("to-do");
+                let ulElement = document.createElement('ul');
+                ulElement.className = "list-group";
+                toDoElement.appendChild(ulElement);
+                for (let i = 0; i < 10; i++) {
+                    let liElementNew = document.createElement('li');
+                    liElementNew.className = "list-group-item";
+                    liElementNew.innerHTML = `Item ${i + 1}`;
+                    ulElement.appendChild(liElementNew);
+                }
+            });
+        </script>
     </body>
 </html>
