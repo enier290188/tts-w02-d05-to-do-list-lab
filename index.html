@@ -66,6 +66,8 @@
                 const ulElement = document.createElement("ul");
                 ulElement.className = "list-group";
                 divToDoElement.appendChild(ulElement);
+                /* Assigning Foco */
+                inputTextCreateItemElement.focus();
                 /* EventListener */
                 buttonCreateItemElement.addEventListener("click", (event) => {
                     const innerHTMLTemporal = String(inputTextCreateItemElement.value).trim();
