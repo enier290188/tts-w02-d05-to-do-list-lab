@@ -28,38 +28,53 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 console.log("DOM ready!");
-                let toDoElement = document.getElementById("to-do");
+                const divToDoElement = document.getElementById("to-do");
                 /* list-group */
-                let ulElement = document.createElement("ul");
+                const ulElement = document.createElement("ul");
                 ulElement.className = "list-group";
-                toDoElement.appendChild(ulElement);
+                divToDoElement.appendChild(ulElement);
                 for (let i = 0; i < 10; i++) {
-                    let liElementNew = document.createElement("li");
-                    liElementNew.className = "list-group-item";
-                    liElementNew.innerHTML = `Item ${i + 1}`;
-                    ulElement.appendChild(liElementNew);
+                    const liNewElement = document.createElement("li");
+                    liNewElement.className = "list-group-item";
+                    liNewElement.style.cursor = "pointer";
+                    liNewElement.innerHTML = `Item ${i + 1}`;
+                    ulElement.appendChild(liNewElement);
                 }
                 /* input-group */
-                let divInputGroupElement = document.createElement("div");
+                const divInputGroupElement = document.createElement("div");
                 divInputGroupElement.className = "input-group m-0 my-3 p-0";
-                toDoElement.appendChild(divInputGroupElement);
-                let inputCreateItemInputTextElement = document.createElement("input");
-                inputCreateItemInputTextElement.type = "text";
-                inputCreateItemInputTextElement.className = "form-control";
-                inputCreateItemInputTextElement.id = "create-item-input-text";
-                inputCreateItemInputTextElement.placeholder = "Item Text";
-                inputCreateItemInputTextElement.setAttribute("aria-label", "Item Text");
-                inputCreateItemInputTextElement.setAttribute("aria-describedby", "create-item-button");
-                divInputGroupElement.appendChild(inputCreateItemInputTextElement);
-                let divInputGroupAppendElement = document.createElement("div");
+                divToDoElement.appendChild(divInputGroupElement);
+                const inputTextCreateItemElement = document.createElement("input");
+                inputTextCreateItemElement.type = "text";
+                inputTextCreateItemElement.className = "form-control";
+                inputTextCreateItemElement.id = "create-item-input-text";
+                inputTextCreateItemElement.placeholder = "New Item";
+                inputTextCreateItemElement.setAttribute("aria-label", "Item Text");
+                inputTextCreateItemElement.setAttribute("aria-describedby", "create-item-button");
+                divInputGroupElement.appendChild(inputTextCreateItemElement);
+                const divInputGroupAppendElement = document.createElement("div");
                 divInputGroupAppendElement.className = "input-group-append";
                 divInputGroupElement.appendChild(divInputGroupAppendElement);
-                let buttonCreateItemButtonElement = document.createElement("button");
-                buttonCreateItemButtonElement.type = "button";
-                buttonCreateItemButtonElement.className = "btn btn-primary";
-                buttonCreateItemButtonElement.id = "create-item-button";
-                buttonCreateItemButtonElement.innerText = "Create Item";
-                divInputGroupAppendElement.appendChild(buttonCreateItemButtonElement);
+                const buttonCreateItemElement = document.createElement("button");
+                buttonCreateItemElement.type = "button";
+                buttonCreateItemElement.className = "btn btn-primary";
+                buttonCreateItemElement.id = "create-item-button";
+                buttonCreateItemElement.innerText = "Create Item";
+                divInputGroupAppendElement.appendChild(buttonCreateItemElement);
+                /* EventListener */
+                buttonCreateItemElement.addEventListener('click', (event) => {
+                    const innerHTMLTemporal = String(inputTextCreateItemElement.value).trim();
+                    if (innerHTMLTemporal.length > 0) {
+                        const liNewElement = document.createElement("li");
+                        liNewElement.className = "list-group-item";
+                        liNewElement.style.cursor = "pointer";
+                        liNewElement.innerHTML = innerHTMLTemporal;
+                        ulElement.appendChild(liNewElement);
+                        inputTextCreateItemElement.value = "";
+                    } else {
+                        alert(`"You should write a text for the new item!"`);
+                    }
+                });
             });
         </script>
     </body>
