@@ -26,12 +26,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 offset-md-3 col-md-6">
-                    <div class="m-0 my-3 p-5 bg-light border border-muted shadow-sm rounded">
-                        <h1 class="m-0 p-0 h1">To Do List - Lab</h1>
-                        <hr class="m-0 mb-5 p-0 border-bottom border-muted">
-                        <div id="to-do" class="m-0 p-0">
-                            <!-- To Do -->
-                        </div>
+                    <div id="to-do" class="m-0 my-3 p-5 bg-light border border-muted shadow-sm rounded">
+                        <!-- To Do -->
                     </div>
                 </div>
             </div>
@@ -44,6 +40,15 @@
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const divToDoElement = document.getElementById("to-do");
+                /* h1 */
+                const h1Element = document.createElement("h1");
+                h1Element.className = "m-0 p-0 h1";
+                h1Element.appendChild(document.createTextNode("To Do List - Lab"));
+                divToDoElement.appendChild(h1Element);
+                /* hr */
+                const hrElement = document.createElement("hr");
+                hrElement.className = "m-0 mb-5 p-0 border-bottom border-muted";
+                divToDoElement.appendChild(hrElement);
                 /* input-group */
                 const divInputGroupElement = document.createElement("div");
                 divInputGroupElement.className = "m-0 mb-3 p-0 input-group";
@@ -99,18 +104,20 @@
                 });
                 ulElement.addEventListener("click", (event) => {
                     const liElement = event.target;
-                    liElement.removeEventListener("mouseenter", liElementMouseEnter);
-                    liElement.removeEventListener("mouseleave", liElementMouseLeave);
-                    liElement.classList.remove("list-group-item-danger");
-                    liElement.classList.remove("cursor-pointer");
-                    liElement.classList.add("cursor-not-allowed");
-                    liElement.classList.add("list-group-item-danger");
-                    liElement.classList.add("text-decoration-line-through");
-                    liElement.classList.add("active");
-                    setTimeout(() => {
-                        liElement.remove();
-                        inputTextCreateItemElement.focus();
-                    }, 1000);
+                    if (ulElement !== liElement) {
+                        liElement.removeEventListener("mouseenter", liElementMouseEnter);
+                        liElement.removeEventListener("mouseleave", liElementMouseLeave);
+                        liElement.classList.remove("list-group-item-danger");
+                        liElement.classList.remove("cursor-pointer");
+                        liElement.classList.add("cursor-not-allowed");
+                        liElement.classList.add("list-group-item-danger");
+                        liElement.classList.add("text-decoration-line-through");
+                        liElement.classList.add("active");
+                        setTimeout(() => {
+                            liElement.remove();
+                            inputTextCreateItemElement.focus();
+                        }, 1000);
+                    }
                 });
             });
         </script>
