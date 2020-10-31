@@ -69,25 +69,21 @@
                 /* Assigning focus */
                 inputTextCreateItemElement.focus();
                 /* EventListener */
+                const liElementMouseEnter = (event) => {
+                    event.target.classList.add("list-group-item-danger");
+                };
+                const liElementMouseLeave = (event) => {
+                    event.target.classList.remove("list-group-item-danger");
+                }
                 buttonCreateItemElement.addEventListener("click", (event) => {
-                    const innerHTMLTemporal = String(inputTextCreateItemElement.value).trim();
-                    if (innerHTMLTemporal.length > 0) {
-                        const liNewElement = document.createElement("li");
-                        liNewElement.className = "list-group-item cursor-pointer";
-                        liNewElement.innerHTML = innerHTMLTemporal;
-                        liNewElement.addEventListener("mouseenter", (liNewEvent) => {
-                            let className = liNewEvent.target.className;
-                            if (!className.includes("list-group-item-danger")) {
-                                liNewEvent.target.classList.add("list-group-item-danger");
-                            }
-                        });
-                        liNewElement.addEventListener("mouseleave", (liNewEvent) => {
-                            let className = liNewEvent.target.className;
-                            if (className.includes("list-group-item-danger")) {
-                                liNewEvent.target.classList.remove("list-group-item-danger");
-                            }
-                        });
-                        ulElement.appendChild(liNewElement);
+                    const inputTextCreateItemElementValue = String(inputTextCreateItemElement.value).trim();
+                    if (inputTextCreateItemElementValue.length > 0) {
+                        const liElement = document.createElement("li");
+                        liElement.className = "list-group-item cursor-pointer";
+                        liElement.innerHTML = inputTextCreateItemElementValue;
+                        liElement.addEventListener("mouseenter", liElementMouseEnter);
+                        liElement.addEventListener("mouseleave", liElementMouseLeave);
+                        ulElement.appendChild(liElement);
                         inputTextCreateItemElement.value = "";
                         inputTextCreateItemElement.focus();
                     } else {
@@ -95,12 +91,17 @@
                     }
                 });
                 ulElement.addEventListener("click", (event) => {
-                    event.target.classList.add("text-decoration-line-through");
-                    event.target.classList.add("cursor-not-allowed");
+                    const liElement = event.target;
+                    liElement.removeEventListener("mouseenter", liElementMouseEnter);
+                    liElement.removeEventListener("mouseleave", liElementMouseLeave);
+                    liElement.classList.add("list-group-item-danger");
+                    liElement.classList.add("text-white");
+                    liElement.classList.add("text-decoration-line-through");
+                    liElement.classList.add("cursor-not-allowed");
                     setTimeout(() => {
-                        event.target.remove();
+                        liElement.remove();
                         inputTextCreateItemElement.focus();
-                    }, 1000);
+                    }, 5000);
                 });
             });
         </script>
