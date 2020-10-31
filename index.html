@@ -10,25 +10,28 @@
         <title>To Do List - Lab</title>
         <style>
             .cursor-pointer {
-                cursor: pointer;
+                cursor: pointer !important;
             }
 
             .cursor-not-allowed {
-                cursor: not-allowed;
+                cursor: not-allowed !important;
             }
 
             .text-decoration-line-through {
-                text-decoration: line-through;
+                text-decoration: line-through !important;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-12 offset-md-4 col-md-4">
-                    <h1 class="h1">To Do List - Lab</h1>
-                    <div id="to-do">
-                        <!-- To Do -->
+                <div class="col-12 offset-md-3 col-md-6">
+                    <div class="m-0 my-3 p-5 bg-light border border-muted shadow-sm rounded">
+                        <h1 class="m-0 p-0 h1">To Do List - Lab</h1>
+                        <hr class="m-0 mb-5 p-0 border-bottom border-muted">
+                        <div id="to-do" class="m-0 p-0">
+                            <!-- To Do -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,14 +46,14 @@
                 const divToDoElement = document.getElementById("to-do");
                 /* input-group */
                 const divInputGroupElement = document.createElement("div");
-                divInputGroupElement.className = "input-group m-0 my-3 p-0";
+                divInputGroupElement.className = "m-0 mb-3 p-0 input-group";
                 divToDoElement.appendChild(divInputGroupElement);
                 const inputTextCreateItemElement = document.createElement("input");
                 inputTextCreateItemElement.type = "text";
-                inputTextCreateItemElement.className = "form-control";
+                inputTextCreateItemElement.className = "form-control border border-muted";
                 inputTextCreateItemElement.id = "create-item-input-text";
                 inputTextCreateItemElement.placeholder = "New Item";
-                inputTextCreateItemElement.setAttribute("aria-label", "Item Text");
+                inputTextCreateItemElement.ariaLabel = "Item Text";
                 inputTextCreateItemElement.setAttribute("aria-describedby", "create-item-button");
                 divInputGroupElement.appendChild(inputTextCreateItemElement);
                 const divInputGroupAppendElement = document.createElement("div");
@@ -64,22 +67,26 @@
                 divInputGroupAppendElement.appendChild(buttonCreateItemElement);
                 /* list-group */
                 const ulElement = document.createElement("ul");
-                ulElement.className = "list-group";
+                ulElement.className = "m-0 p-0 list-group";
                 divToDoElement.appendChild(ulElement);
                 /* Assigning focus */
                 inputTextCreateItemElement.focus();
                 /* EventListener */
                 const liElementMouseEnter = (event) => {
                     event.target.classList.add("list-group-item-danger");
+                    // event.target.classList.add("active");
+                    event.target.classList.remove("list-group-item-light");
                 };
                 const liElementMouseLeave = (event) => {
+                    event.target.classList.add("list-group-item-light");
+                    // event.target.classList.remove("active");
                     event.target.classList.remove("list-group-item-danger");
                 }
                 buttonCreateItemElement.addEventListener("click", (event) => {
                     const inputTextCreateItemElementValue = String(inputTextCreateItemElement.value).trim();
                     if (inputTextCreateItemElementValue.length > 0) {
                         const liElement = document.createElement("li");
-                        liElement.className = "list-group-item cursor-pointer";
+                        liElement.className = "list-group-item list-group-item-action cursor-pointer list-group-item-light";
                         liElement.innerHTML = inputTextCreateItemElementValue;
                         liElement.addEventListener("mouseenter", liElementMouseEnter);
                         liElement.addEventListener("mouseleave", liElementMouseLeave);
@@ -94,10 +101,12 @@
                     const liElement = event.target;
                     liElement.removeEventListener("mouseenter", liElementMouseEnter);
                     liElement.removeEventListener("mouseleave", liElementMouseLeave);
-                    liElement.classList.add("list-group-item-danger");
-                    liElement.classList.add("text-white");
-                    liElement.classList.add("text-decoration-line-through");
+                    liElement.classList.remove("list-group-item-danger");
+                    liElement.classList.remove("cursor-pointer");
                     liElement.classList.add("cursor-not-allowed");
+                    liElement.classList.add("list-group-item-danger");
+                    liElement.classList.add("text-decoration-line-through");
+                    liElement.classList.add("active");
                     setTimeout(() => {
                         liElement.remove();
                         inputTextCreateItemElement.focus();
