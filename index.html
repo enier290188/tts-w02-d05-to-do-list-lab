@@ -85,10 +85,10 @@
                         liElement.addEventListener("mouseleave", liElementMouseLeave);
                         ulElement.appendChild(liElement);
                         inputTextCreateItemElement.value = "";
-                        inputTextCreateItemElement.focus();
                     } else {
                         alert(`"You should write a text for the new item!"`);
                     }
+                    inputTextCreateItemElement.focus();
                 });
                 ulElement.addEventListener("click", (event) => {
                     const liElement = event.target;
